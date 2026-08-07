@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《捉妖》AIGC Narrative Film | 商月作品集</title>
+    <style>
+        :root {
+            --bg-color: #030305; /* 深夜幽蓝色调 */
+            --text-color: #e5e5e5;
+            --accent-color: #6a8caf; /* 清冷幽蓝月光色 */
+            --highlight-color: #d46a36; /* 符咒燃烧的橙红色 */
+            --line-color: #222;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        header { margin-bottom: 60px; border-bottom: 1px solid var(--line-color); padding-bottom: 20px; }
+        .project-title { font-size: 2.5rem; font-weight: 300; letter-spacing: 2px; color: #fff; }
+        .project-meta { color: var(--accent-color); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
+
+        .video-container {
+            width: 100%;
+            margin: 0 auto 60px auto;
+            position: relative;
+            background: #000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* 默认显示自动循环的无声预览片段，点击后播放完整视频 */
+        .preview-video { width: 100%; display: block; cursor: pointer; }
+        .full-video { width: 100%; display: none; }
+        
+        .play-overlay {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px; height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+        }
+        .play-overlay::after {
+            content: '';
+            border-style: solid;
+            border-width: 10px 0 10px 16px;
+            border-color: transparent transparent transparent #fff;
+            margin-left: 4px;
+        }
+
+        .content-section { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-bottom: 60px; }
+        .info-label { font-size: 0.8rem; color: var(--accent-color); text-transform: uppercase; margin-bottom: 8px; display: block; border-left: 2px solid var(--accent-color); padding-left: 10px; }
+        .info-text { font-size: 0.95rem; margin-bottom: 30px; color: #aaa; }
+
+        .description p { margin-bottom: 20px; font-size: 1.05rem; color: #ccc; text-align: justify; }
+
+        /* 工作流展示样式 */
+        .workflow-section {
+            margin: 80px 0;
+            padding: 40px;
+            background: rgba(10, 15, 25, 0.5);
+            border: 1px solid #1a2235;
+            border-radius: 8px;
+        }
+        .workflow-title {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+        }
+        .workflow-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            z-index: 1;
+        }
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            width: 22%;
+        }
+        .step-icon {
+            width: 40px; height: 40px;
+            background: #0d1420;
+            border: 1px solid var(--accent-color);
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+        .step h4 { font-size: 0.9rem; color: #eee; margin-bottom: 5px; }
+        .step p { font-size: 0.75rem; color: #888; }
+
+        .script-quote {
+            padding: 20px;
+            border-left: 3px solid var(--highlight-color);
+            background: linear-gradient(90deg, rgba(212, 106, 54, 0.1) 0%, transparent 100%);
+            margin: 40px 0;
+            font-style: italic;
+            color: #d8d8d8;
+        }
+
+        .gallery { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 60px; }
+        .gallery img { width: 100%; height: auto; display: block; filter: contrast(1.05) brightness(0.95); }
+
+        footer { text-align: center; padding: 80px 0; border-top: 1px solid var(--line-color); margin-top: 100px; color: #555; font-size: 0.8rem; letter-spacing: 1px; }
+
+        @media (max-width: 768px) {
+            .content-section { grid-template-columns: 1fr; }
+            .workflow-steps { flex-direction: column; align-items: center; gap: 30px; }
+            .workflow-steps::before { display: none; }
+            .step { width: 80%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1 class="project-title">《捉妖》</h1>
+            <div class="project-meta">AIGC Narrative Film / AI叙事影像实验</div>
+        </header>
+
+        <div class="video-container" id="video-wrapper">
+            <!-- 切换回 B 站预览模式 -->
+            <iframe src="https://player.bilibili.com/player.html?bvid=BV1FoRDBUELy&page=1&high_quality=1&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%; aspect-ratio:16/9;"></iframe>
+        </div>
+
+        <div class="content-section">
+            <div class="sidebar">
+                <span class="info-label">Roles</span>
+                <p class="info-text">独立导演 / 后期制作</p>
+
+                <span class="info-label">Keywords</span>
+                <p class="info-text">奇幻东方法术 / 高反差布光 / AIGC 叙事</p>
+            </div>
+            
+            <div class="description">
+                <span class="info-label">Project Background</span>
+                <p>《捉妖》是一项基于生成式人工智能技术完成的个人影像创作。项目尝试探索 AI 在角色设计、视觉构建以及叙事影像制作中的应用方式。不同于单纯的视觉生成实验，本项目以叙事创作为基础，通过导演规划控制 AI 生成内容，使技术服务于整体影像表达。</p>
+                
+                <span class="info-label">Creative Direction</span>
+                <p>项目从故事概念与视觉风格出发，建立整体影像方向。前期围绕世界观设定、人物形象、场景氛围、视觉风格进行规划，随后结合 AI 工具完成视觉探索，并通过后期剪辑重新组织影像节奏。</p>
+                
+                <span class="info-label">Creative Exploration</span>
+                <p>生成式 AI 正在改变影像生产方式，AI 在本项目中不仅承担视觉生成作用，也成为导演探索影像表达的新媒介。</p>
+            </div>
+        </div>
+
+        <div class="workflow-section">
+            <h3 class="workflow-title">AI Workflow / 创作流程</h3>
+            <div class="workflow-steps">
+                <div class="step">
+                    <div class="step-icon">✒️</div>
+                    <h4>Concept Design</h4>
+                    <p>故事构思与视觉设定</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">🎬</div>
+                    <h4>Storyboard</h4>
+                    <p>规划镜头结构与视觉表达</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">🧠</div>
+                    <h4>AI Generation</h4>
+                    <p>导演控制下的 AI 视觉探索</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">🎞️</div>
+                    <h4>Editing & Integration</h4>
+                    <p>后期剪辑与最终影像整合</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="script-quote">
+            “男主前方的黑褐色泥泞地面突然发生剧烈震颤，一具沾满湿润泥土、双手紧握生锈残缺双刀的恐怖白骨骷髅以极具力量感的姿态从地底破土而出……伴随着青白色的微弱魔法流光，空气中弥漫着浓密的冷色调雾气。”<br>
+            <span style="font-size: 0.8em; color: #888; margin-top: 10px; display: block;">— 摘自镜号23 提示词控制设定</span>
+        </div>
+
+        <div class="gallery">
+            <img src="zhuoyao_assets/01_market.jpg" alt="夜市全貌">
+            <img src="zhuoyao_assets/02_dancer.jpg" alt="戏台舞女">
+            <img src="zhuoyao_assets/03_confrontation.jpg" alt="对质捉妖人">
+            <img src="zhuoyao_assets/04_forest.jpg" alt="幽暗密林">
+            <img src="zhuoyao_assets/05_combat.jpg" alt="骷髅破土战斗">
+        </div>
+
+        <footer>
+            © 2026 SHANG YUE. ALL RIGHTS RESERVED.
+        </footer>
+    </div>
+
+    <script>
+        const wrapper = document.getElementById('video-wrapper');
+        const preview = document.getElementById('preview-video');
+        const full = document.getElementById('full-video');
+        const icon = document.getElementById('play-icon');
+
+        wrapper.addEventListener('click', () => {
+            if(full.style.display !== 'block') {
+                preview.style.display = 'none';
+                icon.style.display = 'none';
+                full.style.display = 'block';
+                full.play();
+            }
+        });
+    </script>
+</body>
+</html>

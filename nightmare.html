@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《魇》Narrative Short Film | 商月作品集</title>
+    <style>
+        :root {
+            --bg-color: #000000; /* 极致暗黑 */
+            --text-color: #d0d0d0;
+            --accent-color: #3b5042; /* 冷绿色/压抑绿 */
+            --highlight-color: #721616; /* 惊悚血红色 */
+            --line-color: #1a1a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: "PingFang SC", "STHeiti", sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        header { margin-bottom: 60px; border-bottom: 1px solid var(--line-color); padding-bottom: 20px; }
+        .project-title { font-size: 2.5rem; font-weight: 200; letter-spacing: 4px; color: #fff; }
+        .project-meta { color: #555; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
+
+        .video-container {
+            width: 100%;
+            margin: 0 auto 60px auto;
+            position: relative;
+            background: #000;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        /* 默认显示自动循环的无声预览片段，点击后播放完整视频 */
+        .preview-video { width: 100%; display: block; cursor: pointer; filter: contrast(1.1) brightness(0.9); }
+        .full-video { width: 100%; display: none; }
+        
+        .play-overlay {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px; height: 70px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            pointer-events: none;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+        .video-container:hover .play-overlay {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(255,255,255,0.15);
+        }
+        .play-overlay::after {
+            content: '';
+            border-style: solid;
+            border-width: 12px 0 12px 18px;
+            border-color: transparent transparent transparent rgba(255,255,255,0.8);
+            margin-left: 6px;
+        }
+
+        .content-section { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-bottom: 60px; }
+        .info-label { font-size: 0.75rem; color: var(--accent-color); text-transform: uppercase; margin-bottom: 8px; display: block; border-left: 2px solid var(--highlight-color); padding-left: 10px; }
+        .info-text { font-size: 0.95rem; margin-bottom: 30px; color: #888; }
+
+        .description p { margin-bottom: 25px; font-size: 1.05rem; color: #bbb; text-align: justify; letter-spacing: 0.5px;}
+
+        .gallery { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+            margin-top: 60px; 
+        }
+        .gallery img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            filter: contrast(1.1) brightness(0.8) grayscale(20%);
+            transition: all 0.5s ease;
+        }
+        .gallery img:hover {
+            filter: contrast(1.1) brightness(1) grayscale(0%);
+        }
+        
+        .gallery .full-width {
+            grid-column: 1 / -1;
+        }
+
+        footer { text-align: center; padding: 100px 0; border-top: 1px solid var(--line-color); margin-top: 100px; color: #333; font-size: 0.75rem; letter-spacing: 2px; }
+
+        @media (max-width: 768px) {
+            .content-section { grid-template-columns: 1fr; }
+            .gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1 class="project-title">《魇》</h1>
+            <div class="project-meta">Narrative Short Film / 心理惊悚剧情短片</div>
+        </header>
+
+        <div class="video-container" id="video-wrapper">
+            <!-- 切换回 B 站预览模式 -->
+            <iframe id="bili-player" src="https://player.bilibili.com/player.html?bvid=BV1JfRDB7EpH&page=1&high_quality=1&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%; aspect-ratio:16/9;"></iframe>
+        </div>
+
+        <div class="content-section">
+            <div class="sidebar">
+                <span class="info-label">Roles</span>
+                <p class="info-text">导演 / 编剧 / 后期制作</p>
+
+                <span class="info-label">Themes</span>
+                <p class="info-text">校园霸凌 / 心理惊悚 / 现实与主观交织</p>
+                
+                <span class="info-label">Visual Style</span>
+                <p class="info-text">压抑冷调 / 黑暗空间 / 强情绪主导</p>
+            </div>
+            
+            <div class="description">
+                <span class="info-label">Project Background</span>
+                <p>《魇》是一部围绕校园霸凌主题展开的心理惊悚短片。影片尝试通过现实与心理空间交织的方式，呈现人物在长期压迫与伤害下产生的心理变化。作品以类型片形式作为表达载体，将心理冲突转化为视觉与听觉体验。</p>
+                
+                <span class="info-label">Narrative Approach</span>
+                <p>影片以人物心理变化作为核心线索，通过现实事件与主观心理空间之间的交错，展现人物从压抑、逃避到情绪爆发的过程。创作过程中，尝试利用类型元素服务人物心理表达，而非单纯依靠感官刺激制造效果。</p>
+                
+                <span class="info-label">Visual Language</span>
+                <p>影片通过色彩设计、光影变化、镜头节奏、声音构建强化人物心理状态。视觉形式随着人物情绪变化进行调整，使视听语言服务于叙事表达。</p>
+            </div>
+        </div>
+
+        <div class="gallery">
+            <img src="nightmare_assets/01_hide.jpeg" alt="惊恐躲藏">
+            <img src="nightmare_assets/02_sink.jpeg" alt="洗手台血迹">
+            <img class="full-width" src="nightmare_assets/04_hallway.jpeg" alt="幽绿走廊">
+            <img src="nightmare_assets/03_lockers.jpeg" alt="阴暗更衣室">
+            <img src="nightmare_assets/05_dark.jpeg" alt="黑暗深处">
+        </div>
+
+        <footer>
+            © 2026 SHANG YUE. ALL RIGHTS RESERVED.
+        </footer>
+    </div>
+
+    <script>
+        const wrapper = document.getElementById('video-wrapper');
+        const preview = document.getElementById('preview-video');
+        const full = document.getElementById('full-video');
+        const icon = document.getElementById('play-icon');
+
+        wrapper.addEventListener('click', () => {
+            if(full.style.display !== 'block') {
+                preview.style.display = 'none';
+                icon.style.display = 'none';
+                full.style.display = 'block';
+                full.play();
+            }
+        });
+    </script>
+</body>
+</html>

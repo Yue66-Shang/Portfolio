@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高端黑金口红广告 | 商月作品集</title>
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: #f2f2f2;
+            --accent-color: #c5a059; /* 香槟金/暖金调 */
+            --line-color: #222;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: "PingFang SC", "STHeiti", sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        header { margin-bottom: 60px; border-bottom: 1px solid var(--line-color); padding-bottom: 20px; }
+        .project-title { font-size: 2.5rem; font-weight: 200; letter-spacing: 4px; color: var(--accent-color); }
+        .project-meta { color: #666; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        .video-container {
+            width: 100%;
+            max-width: 540px;
+            margin: 0 auto 60px auto;
+            position: relative;
+            background: #000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            cursor: pointer;
+        }
+
+        video { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            outline: none;
+        }
+
+        .content-section { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-bottom: 60px; }
+        .info-label { font-size: 0.75rem; color: var(--accent-color); text-transform: uppercase; margin-bottom: 5px; display: block; border-left: 2px solid var(--accent-color); padding-left: 10px; }
+        .info-text { font-size: 0.95rem; margin-bottom: 30px; color: #aaa; }
+
+        .description p { margin-bottom: 25px; font-size: 1.05rem; color: #ccc; text-align: justify; }
+
+        .storyboard-section { margin-top: 80px; }
+        .storyboard-img { width: 100%; height: auto; margin-bottom: 40px; border: 1px solid #333; }
+
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; margin-top: 40px; }
+        .gallery img { width: 100%; height: auto; opacity: 0.8; transition: opacity 0.5s; }
+        .gallery img:hover { opacity: 1; }
+
+        footer { text-align: center; padding: 100px 0; color: #444; font-size: 0.75rem; letter-spacing: 2px; border-top: 1px solid var(--line-color); }
+
+        @media (max-width: 768px) {
+            .content-section { grid-template-columns: 1fr; }
+            .project-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1 class="project-title">#001 永恒正红</h1>
+            <div class="project-meta">Luxury Lipstick Film Ad / 高端美妆广告</div>
+        </header>
+
+        <div class="video-container" onclick="this.querySelector('video').play()">
+            <!-- 发布版使用相对路径引用视频资产 -->
+            <video autoplay muted loop playsinline webkit-playsinline poster="lipstick_assets/frame2.jpg">
+                <source src="lipstick_assets/lipstick.mov" type="video/quicktime">
+                您的浏览器不支持播放该视频。
+            </video>
+            <p style="text-align:center; font-size: 10px; color: #444; margin-top: 5px;">* 若未自动播放，请点击画面激活</p>
+        </div>
+
+        <div class="content-section">
+            <div class="sidebar">
+                <span class="info-label">Direction</span>
+                <p class="info-text">优雅 / 坚定 / 女性力量</p>
+
+                <span class="info-label">Key Colors</span>
+                <p class="info-text">深黑 / 香槟金 / 暖白阳光</p>
+                
+                <span class="info-label">Keywords</span>
+                <p class="info-text">奢华仪式感 / 城市夜景 / 正红唇妆</p>
+            </div>
+            
+            <div class="description">
+                <span class="info-label">Project Background</span>
+                <p>本项目围绕高端美妆品牌视觉需求展开。以高级质感、女性力量及产品价值表达为核心方向，通过 AIGC 技术完成商业广告视觉方案探索。围绕品牌定位，对人物、场景、色彩、灯光及镜头语言进行整体设计，建立统一视觉体系。</p>
+                <span class="info-label">Visual Concept</span>
+                <p>项目采用高端美妆广告视觉逻辑。通过人物形象设计、产品视觉符号、场景氛围构建、商业广告光影、镜头语言规划来共同建立统一的品牌视觉风格。</p>
+                <span class="info-label">My Role</span>
+                <p>负责项目导演、视觉策划及 AIGC 影像制作。在制作前完成完整视觉预演，围绕广告节奏规划产品展示、人物特写、情绪动作及环境氛围镜头，通过分镜设计明确画面构成与视觉重点。</p>
+            </div>
+        </div>
+
+        <div class="storyboard-section">
+            <span class="info-label">Visual Planning Board</span>
+            <!-- 使用极小范围去水印版 -->
+            <img src="lipstick_assets/storyboard_clean_v2.png" class="storyboard-img" alt="故事板">
+        </div>
+
+        <div class="gallery">
+            <!-- 发布版切换为相对路径 -->
+            <img src="lipstick_assets/frame1.jpg">
+            <img src="lipstick_assets/frame2.jpg">
+            <img src="lipstick_assets/frame3.jpg">
+            <img src="lipstick_assets/frame5.jpg">
+        </div>
+
+        <footer>
+            © 2026 SHANG YUE. ALL RIGHTS RESERVED.
+        </footer>
+    </div>
+
+</body>
+</html>
