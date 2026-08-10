@@ -147,9 +147,14 @@
             <div class="project-meta">AIGC Narrative Film / AI叙事影像实验</div>
         </header>
 
-        <div class="video-container" id="video-wrapper">
-            <!-- 切换回 B 站预览模式 -->
-            <iframe src="https://player.bilibili.com/player.html?bvid=BV1FoRDBUELy&page=1&high_quality=1&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%; aspect-ratio:16/9;"></iframe>
+                <div class="video-container" id="video-wrapper">
+            <video class="preview-video" id="preview-video" autoplay muted loop playsinline poster="zhuoyao_assets/02_dancer.jpg">
+                <source src="zhuoyao_assets/zhuoyao_preview.mp4" type="video/mp4">
+            </video>
+            <div class="play-overlay" id="play-icon"></div>
+            <video class="full-video" id="full-video" controls playsinline>
+                <source src="zhuoyao_assets/zhuoyao.mp4" type="video/mp4">
+            </video>
         </div>
 
         <div class="content-section">
